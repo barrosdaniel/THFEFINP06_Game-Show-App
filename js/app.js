@@ -41,11 +41,8 @@ function getRandomPhraseAsArray(arr) {
   // Randomly choose phrase from the array
   const arrayIndex = Math.floor(Math.random() * (arr.length));
   const randomPhrase = arr[arrayIndex]
-
-
-
-
-
+  const arrayOfCharacters = randomPhrase.split('');
+  return arrayOfCharacters;
 }
 
-getRandomPhraseAsArray(phrases);
+console.log(getRandomPhraseAsArray(phrases));
