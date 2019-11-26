@@ -4,11 +4,13 @@ UI Elements
 const startGameButton = document.querySelector('.btn__reset');
 const startScreenOverlay = document.querySelector('.start');
 const phraseUL = document.querySelector('#phrase ul');
+const keyboard = document.querySelector('#qwerty');
 
 /* ======================================================================
 Event Listeners
 ====================================================================== */
 startGameButton.addEventListener('click', hideStartScreenOverlay);
+keyboard.addEventListener('click', keyboardPress);
 
 /* ======================================================================
 Controllers
@@ -54,9 +56,37 @@ function addPhraseToDisplay(arr) {
     if (char !== ' ') {
       li.classList = 'letter';
     }
-    console.log(li);
+  });
+}
 
-  })
+function keyboardPress(e) {
+  if (e.target.tagName === 'BUTTON') {
+    e.target.classList = 'chosen';
+    e.target.disabled = true;
+  }
+  checkLetter(e.target);
+}
+
+function checkLetter(clickedButton) {
+  const letterFound = clickedButton.textContent;
+
+  // Function loop checking if pressed key match any letter
+  const letterSlots = document.querySelectorAll('.letter');
+  letterSlots.forEach(charSlot => {
+    const char = charSlot.textContent;
+    if (char.toLowerCase() === letterFound) {
+      charSlot.classList = 'letter show';
+      return char;
+    } else {
+      return null;
+    }
+  });
+
+
+  // If there's a match, add the class show to the letter slot
+  // Return letter
+
+  // If there's no match, return null
 }
 
 const phraseArray = getRandomPhraseAsArray(phrases);
