@@ -3,6 +3,7 @@ UI Elements
 ====================================================================== */
 const startGameButton = document.querySelector('.btn__reset');
 const startScreenOverlay = document.querySelector('.start');
+const phraseUL = document.querySelector('#phrase ul');
 
 /* ======================================================================
 Event Listeners
@@ -45,4 +46,18 @@ function getRandomPhraseAsArray(arr) {
   return arrayOfCharacters;
 }
 
-console.log(getRandomPhraseAsArray(phrases));
+function addPhraseToDisplay(arr) {
+  arr.forEach(char => {
+    const li = document.createElement('li');
+    li.textContent = char;
+    phraseUL.appendChild(li);
+    if (char !== ' ') {
+      li.classList = 'letter';
+    }
+    console.log(li);
+
+  })
+}
+
+const phraseArray = getRandomPhraseAsArray(phrases);
+addPhraseToDisplay(phraseArray);
