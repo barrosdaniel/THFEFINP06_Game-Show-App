@@ -5,6 +5,7 @@ const startGameButton = document.querySelector('.btn__reset');
 const startScreenOverlay = document.querySelector('.start');
 const phraseUL = document.querySelector('#phrase ul');
 const keyboard = document.querySelector('#qwerty');
+const scoreboard = document.querySelector('#scoreboard ol');
 
 /* ======================================================================
 Event Listeners
@@ -15,7 +16,7 @@ keyboard.addEventListener('click', keyboardPress);
 /* ======================================================================
 Controllers
 ====================================================================== */
-
+let missed = 0;
 
 /* ======================================================================
 Data
@@ -64,29 +65,29 @@ function keyboardPress(e) {
     e.target.classList = 'chosen';
     e.target.disabled = true;
   }
-  checkLetter(e.target);
+  const letterFound = checkLetter(e.target);
+  if (letterFound === null) {
+    scoreboard.removeChild(scoreboard.children[0]);
+    missed += 1;
+  }
 }
 
 function checkLetter(clickedButton) {
-  const letterFound = clickedButton.textContent;
-
-  // Function loop checking if pressed key match any letter
+  const clickedLetter = clickedButton.textContent;
   const letterSlots = document.querySelectorAll('.letter');
+  let matchFound = 0;
   letterSlots.forEach(charSlot => {
     const char = charSlot.textContent;
-    if (char.toLowerCase() === letterFound) {
+    if (char.toLowerCase() === clickedLetter) {
       charSlot.classList = 'letter show';
-      return char;
-    } else {
-      return null;
+      matchFound += 1;
     }
   });
-
-
-  // If there's a match, add the class show to the letter slot
-  // Return letter
-
-  // If there's no match, return null
+  if (matchFound > 0) {
+    return clickedLetter;
+  } else if (matchFound < 1) {
+    return null
+  }
 }
 
 const phraseArray = getRandomPhraseAsArray(phrases);
