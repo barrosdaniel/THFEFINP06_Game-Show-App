@@ -71,16 +71,16 @@ function keyboardPress(e) {
   if (e.target.tagName === 'BUTTON') {
     e.target.classList = 'chosen';
     e.target.disabled = true;
-  }
-  const letterFound = checkLetter(e.target);
-  if (letterFound === null) {
-    missed += 1;
-    console.log(missed);
-    if (missed <= 5) {
-      scoreboard.removeChild(scoreboard.children[0]);
+    const letterFound = checkLetter(e.target);
+    if (letterFound === null) {
+      missed += 1;
+      console.log(missed);
+      if (missed <= 5) {
+        scoreboard.removeChild(scoreboard.children[0]);
+      }
     }
+    checkWin();
   }
-  checkWin();
 }
 
 function checkLetter(clickedButton) {
