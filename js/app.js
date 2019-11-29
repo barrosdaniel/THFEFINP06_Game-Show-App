@@ -1,6 +1,8 @@
 /* ======================================================================
 UI Elements
 ====================================================================== */
+const overlay = document.querySelector('#overlay');
+const title = document.querySelector('.title');
 const startGameButton = document.querySelector('.btn__reset');
 const startScreenOverlay = document.querySelector('.start');
 const phraseUL = document.querySelector('#phrase ul');
@@ -39,6 +41,8 @@ Logic
 ====================================================================== */
 function hideStartScreenOverlay() {
   startScreenOverlay.style.display = 'none';
+  const phraseArray = getRandomPhraseAsArray(phrases);
+  addPhraseToDisplay(phraseArray);
 }
 
 function getRandomPhraseAsArray(arr) {
@@ -67,9 +71,13 @@ function keyboardPress(e) {
   }
   const letterFound = checkLetter(e.target);
   if (letterFound === null) {
-    scoreboard.removeChild(scoreboard.children[0]);
     missed += 1;
+    console.log(missed);
+    if (missed <= 5) {
+      scoreboard.removeChild(scoreboard.children[0]);
+    }
   }
+  checkWin();
 }
 
 function checkLetter(clickedButton) {
@@ -90,5 +98,32 @@ function checkLetter(clickedButton) {
   }
 }
 
-const phraseArray = getRandomPhraseAsArray(phrases);
-addPhraseToDisplay(phraseArray);
+function processWin() {
+  overlay.style.display = 'flex';
+  overlay.classList = 'win';
+  title.textContent = `You win!`;
+  startGameButton.textContent = 'Play Again!';
+  const winButton = document.querySelector('.win .btn__reset');
+  winButton.addEventListener('click', () => location.reload());
+}
+
+function processLose() {
+  overlay.style.display = 'flex';
+  overlay.classList = 'lose';
+  title.textContent = `You lose...`;
+  startGameButton.textContent = 'Play Again!';
+  const loseButton = document.querySelector('.lose .btn__reset');
+  loseButton.addEventListener('click', () => location.reload());
+}
+
+function checkWin() {
+  const allLetters = document.querySelectorAll('.letter');
+  const guessedLetters = document.querySelectorAll('.show');
+  const numberOfAllLetters = allLetters.length;
+  const numberOfGuessedLetters = guessedLetters.length;
+  if (numberOfAllLetters === numberOfGuessedLetters) {
+    processWin();
+  } else if (missed > 5) {
+    processLose();
+  }
+}
