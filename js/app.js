@@ -60,6 +60,9 @@ function addPhraseToDisplay(arr) {
     phraseUL.appendChild(li);
     if (char !== ' ') {
       li.classList = 'letter';
+    } else {
+      li.style.display = 'inline-block';
+      li.style.margin = '15px';
     }
   });
 }
@@ -123,7 +126,7 @@ function checkWin() {
   const numberOfGuessedLetters = guessedLetters.length;
   if (numberOfAllLetters === numberOfGuessedLetters) {
     processWin();
-  } else if (missed > 5) {
+  } else if (missed >= 5) {
     processLose();
   }
 }
