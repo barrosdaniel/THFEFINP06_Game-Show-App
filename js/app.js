@@ -34,7 +34,7 @@ const phrases = [
   'Have enough courage to start and enough heart to finish',
   'Determine your priorities and focus on them',
   'Never let your emotions overpower your intelligence'
-]
+];
 
 /* ======================================================================
 Logic
@@ -48,7 +48,7 @@ function hideStartScreenOverlay() {
 function getRandomPhraseAsArray(arr) {
   // Randomly choose phrase from the array
   const arrayIndex = Math.floor(Math.random() * (arr.length));
-  const randomPhrase = arr[arrayIndex]
+  const randomPhrase = arr[arrayIndex];
   const arrayOfCharacters = randomPhrase.split('');
   return arrayOfCharacters;
 }
@@ -96,7 +96,7 @@ function checkLetter(clickedButton) {
   if (matchFound > 0) {
     return clickedLetter;
   } else if (matchFound < 1) {
-    return null
+    return null;
   }
 }
 
@@ -106,7 +106,7 @@ function updateOverlayElements() {
 }
 
 function processWin() {
-  updateOverlayElements()
+  updateOverlayElements();
   overlay.classList = 'win';
   title.textContent = `You win!`;
   const winButton = document.querySelector('.win .btn__reset');
@@ -114,7 +114,7 @@ function processWin() {
 }
 
 function processLose() {
-  updateOverlayElements()
+  updateOverlayElements();
   overlay.classList = 'lose';
   title.textContent = `You lose...`;
   const loseButton = document.querySelector('.lose .btn__reset');
