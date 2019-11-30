@@ -74,7 +74,6 @@ function keyboardPress(e) {
     const letterFound = checkLetter(e.target);
     if (letterFound === null) {
       missed += 1;
-      console.log(missed);
       if (missed <= 5) {
         scoreboard.removeChild(scoreboard.children[0]);
       }
@@ -101,20 +100,23 @@ function checkLetter(clickedButton) {
   }
 }
 
-function processWin() {
+function updateOverlayElements() {
   overlay.style.display = 'flex';
+  startGameButton.textContent = 'Play Again!';
+}
+
+function processWin() {
+  updateOverlayElements()
   overlay.classList = 'win';
   title.textContent = `You win!`;
-  startGameButton.textContent = 'Play Again!';
   const winButton = document.querySelector('.win .btn__reset');
   winButton.addEventListener('click', () => location.reload());
 }
 
 function processLose() {
-  overlay.style.display = 'flex';
+  updateOverlayElements()
   overlay.classList = 'lose';
   title.textContent = `You lose...`;
-  startGameButton.textContent = 'Play Again!';
   const loseButton = document.querySelector('.lose .btn__reset');
   loseButton.addEventListener('click', () => location.reload());
 }
